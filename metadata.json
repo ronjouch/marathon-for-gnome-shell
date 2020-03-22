@@ -1,0 +1,7 @@
+{
+  "name": "Marathon",
+  "description": "Minimal run-or-focus app launcher",
+  "uuid": "marathon@ronjouch.github.io",
+  "shell-version": ["3.36"],
+  "version": 1
+}
