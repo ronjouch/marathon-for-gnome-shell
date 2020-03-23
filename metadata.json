@@ -3,5 +3,6 @@
   "description": "Minimal run-or-focus app launcher",
   "uuid": "marathon@ronjouch.github.io",
   "shell-version": ["3.36"],
+  "settings-schema": "org.gnome.shell.extensions.marathon",
   "version": 1
 }

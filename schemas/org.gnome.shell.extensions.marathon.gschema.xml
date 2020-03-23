@@ -1,0 +1,8 @@
+<schemalist>
+  <schema id="org.gnome.shell.extensions.marathon" path="/org/gnome/shell/extensions/marathon/">
+    <key type="as" name="marathonshortcut">
+      <default><![CDATA[['F10']]]></default>
+      <summary>Key to do something</summary>
+    </key>
+  </schema>
+</schemalist>

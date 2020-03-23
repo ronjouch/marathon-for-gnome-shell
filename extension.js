@@ -1,14 +1,17 @@
 'use strict';
 
-const Main = imports.ui.main;
 const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Shell = imports.gi.Shell;
 const GLib = imports.gi.GLib;
+const Main = imports.ui.main;
+const Me = ExtensionUtils.getCurrentExtension();
+const Meta = imports.gi.Meta;
+const Shell = imports.gi.Shell;
+
+const Utils  = imports.misc.extensionUtils.getCurrentExtension().imports.utils;
 
 /**
- * @param {function} func 
- * @param {number} millis 
+ * @param {function} callback
+ * @param {number} millis
  */
 const setTimeout = (callback, millis) => {
   // stolen from https://github.com/satya164/gjs-helpers/blob/master/src/timing.js
@@ -52,22 +55,32 @@ class Extension {
         // log('***** windows.length', windows.length);
       }
       // https://github.com/lyonel/all-windows/blob/master/extension.js#L119-L124
-      apps[2].get_windows()[0].activate(global.get_current_time());
+      // apps[2].get_windows()[0].activate(global.get_current_time());
 
       // log('***** imports', Object.keys(imports));
       // log('***** imports.ui', Object.keys(imports.ui));
       // log('***** imports.gi', Object.keys(imports.gi));
       // log('***** imports.misc', Object.keys(imports.misc));
-      log('***** registering shortcut');
-      // global.display.add_keybinding(
-      //   'test-keybinding',
+      const settings = Utils.getSettings();
+      log('***** settings.list_children()', settings.list_children());
+      log('***** settings.get_default_value("marathonshortcut")', settings.get_default_value("marathonshortcut"));
 
-      // )
-    }, 4000);
-
-    // TODO keybindings; see https://github.com/ivoarch/gnome-shell-TilixDropdown/blob/master/extension.js
+    // See https://github.com/ivoarch/gnome-shell-TilixDropdown/blob/master/extension.js
+    //     https://gjs-docs.gnome.org/meta5~5_api/meta.display#method-add_keybinding
+    // TODO call stuff;
     // https://gjs-docs.gnome.org/glib20~2.62.0/glib.spawn_async
     // https://gjs-docs.gnome.org/glib20~2.62.0/glib.spawn_command_line_async
+      log('***** registering shortcut');
+      const keybindResult = global.display.add_keybinding(
+        'marathonshortcut',
+        settings,
+        Meta.KeyBindingFlags.NONE,
+        () => log('***** hello world')
+      );
+      log('***** keybindResult', keybindResult);
+
+    }, 4000);
+
   }
 
   enable() {
