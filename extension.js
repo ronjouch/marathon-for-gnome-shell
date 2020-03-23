@@ -66,20 +66,22 @@ class Extension {
       log('***** settings.get_default_value("marathonshortcut")', settings.get_default_value("marathonshortcut"));
 
     // See https://github.com/ivoarch/gnome-shell-TilixDropdown/blob/master/extension.js
-    //     https://gjs-docs.gnome.org/meta5~5_api/meta.display#method-add_keybinding
+    // https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/d9a75412c/js/ui/windowManager.js#L1100
+    // https://github.com/paperwm/PaperWM/blob/develop/keybindings.js
     // TODO call stuff;
     // https://gjs-docs.gnome.org/glib20~2.62.0/glib.spawn_async
     // https://gjs-docs.gnome.org/glib20~2.62.0/glib.spawn_command_line_async
-      log('***** registering shortcut');
-      const keybindResult = global.display.add_keybinding(
+      log('***** registering shortcut with', Main.wm.addKeybinding);
+      const keybindResult = Main.wm.addKeybinding(
         'marathonshortcut',
         settings,
         Meta.KeyBindingFlags.NONE,
+        Shell.ActionMode.NORMAL, // only with Main.wm.addKeybinding
         () => log('***** hello world')
       );
       log('***** keybindResult', keybindResult);
 
-    }, 4000);
+    }, 6000);
 
   }
 
